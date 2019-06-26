@@ -1,0 +1,53 @@
+{
+  "name": "auto-unsubscribe",
+  "version": "0.0.0",
+  "description": "an auto unsubscribe lib for angular",
+  "scripts": {
+    "release": "npx standard-version",
+    "build": "ng-packagr -p package.json",
+    "test": "jest --env=node",
+    "commit": "npx git-cz"
+  },
+  "keywords": [
+    "angular",
+    "rxjs",
+    "unsubscribe"
+  ],
+  "peerDependencies": {
+    "@angular/core": "^8.0.2",
+    "rxjs": "^6.5.2"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^8.0.2",
+    "@angular/compiler-cli": "^8.0.2",
+    "@angular/core": "^8.0.2",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.10",
+    "jest": "^24.8.0",
+    "ng-packagr": "^5.3.0",
+    "rxjs": "^6.5.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.2"
+  },
+  "private": false,
+  "author": "",
+  "license": "MIT",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/tests/.*\\.(ts|js)$"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "@angular/cli": "^8.0.4"
+  }
+}
