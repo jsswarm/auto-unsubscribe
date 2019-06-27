@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AutoUnsubscribe } from '../src/auto-unsubscribe';
 
@@ -9,7 +9,7 @@ function createTestComponent() {
     @Component({
         template: ''
     })
-    class TestComponent implements OnInit {
+    class TestComponent implements OnDestroy, OnInit {
 
         @AutoUnsubscribe()
         data$ = new Observable(() => {
@@ -20,11 +20,13 @@ function createTestComponent() {
             this.data$.subscribe();
         }
 
+        ngOnDestroy = jest.fn();
+
     }
 
     return {
         tearDownSpy,
-        TestComponent
+        testComponent: new TestComponent()
     };
 
 }
@@ -33,15 +35,15 @@ describe('AutoUnsubscribe', () => {
 
     xit('🚧 should unsubscribe from observable when component is destroyed', () => {
 
-        const {TestComponent, tearDownSpy} = createTestComponent();
+        const {testComponent, tearDownSpy} = createTestComponent();
 
-        // call TestComponent.ngOnInit()
-        // compile component with IVy.
-        // check tearDownSpy is not called yet.
-        // trigger component onDestroy.
-        // check tearDownSpy is now called.
+        testComponent.ngOnInit();
 
-        throw new Error('🚧 work in progress!');
+        expect(tearDownSpy).not.toHaveBeenCalled();
+
+        testComponent.ngOnDestroy();
+
+        expect(tearDownSpy).toHaveBeenCalledTimes(1);
 
     });
 
