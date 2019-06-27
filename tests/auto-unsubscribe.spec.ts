@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { AutoUnsubscribe } from '../src/auto-unsubscribe';
 
 function createTestComponent() {
-
   const onDestroySpy = jest.fn();
   const tearDownSpy = jest.fn();
 
@@ -11,7 +10,6 @@ function createTestComponent() {
     template: ''
   })
   class TestComponent implements OnDestroy, OnInit {
-
     @AutoUnsubscribe()
     data$ = new Observable(() => tearDownSpy);
 
@@ -22,7 +20,6 @@ function createTestComponent() {
     ngOnDestroy() {
       onDestroySpy();
     }
-
   }
 
   return {
@@ -30,13 +27,10 @@ function createTestComponent() {
     tearDownSpy,
     testComponent: new TestComponent()
   };
-
 }
 
 describe('AutoUnsubscribe', () => {
-
   it('should unsubscribe from observable when component is destroyed', () => {
-
     const { onDestroySpy, tearDownSpy, testComponent } = createTestComponent();
 
     testComponent.ngOnInit();
@@ -50,12 +44,10 @@ describe('AutoUnsubscribe', () => {
 
     /* Check that the observable has been unsubscribed from. */
     expect(tearDownSpy).toHaveBeenCalledTimes(1);
-
   });
 
   xit('🚧 should unsubscribe from observable even when replaced by another', () => {
-
-    const { onDestroySpy, tearDownSpy, testComponent } = createTestComponent();
+    const { tearDownSpy, testComponent } = createTestComponent();
 
     testComponent.ngOnInit();
 
@@ -72,7 +64,5 @@ describe('AutoUnsubscribe', () => {
 
     expect(tearDownSpy).toHaveBeenCalledTimes(1);
     expect(newTearDownSpy).toHaveBeenCalledTimes(1);
-
   });
-
 });
