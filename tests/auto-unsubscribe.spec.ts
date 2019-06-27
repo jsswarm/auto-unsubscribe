@@ -50,6 +50,15 @@ describe('AutoUnsubscribe', () => {
     expect(tearDownSpy).toHaveBeenCalledTimes(1);
   });
 
+  xit('🚧 should unsubscribe from observable when component is destroyed & using IVy', () => {
+    // @todo compile component with IVy.
+    // @todo call ngOnInit.
+    // @todo call ngOnDestroy.
+    // @todo check that onDestroySpy is called.
+    // @todo check that tearDownSpy is called.
+    throw new Error('🚧 work in progress!');
+  });
+
   it('should unsubscribe from observable even when replaced by another', () => {
     const { tearDownSpy, testComponent } = createTestComponent();
 
