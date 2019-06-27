@@ -18,6 +18,8 @@ function createTestComponent() {
         });
 
         ngOnInit() {
+            /* Subscribing twice to make sure that the observable get unsubscribed form twice. */
+            this.data$.subscribe();
             this.data$.subscribe();
         }
 
@@ -51,7 +53,7 @@ describe('AutoUnsubscribe', () => {
         expect(onDestroySpy).toHaveBeenCalledTimes(1);
 
         /* Check that the observable has been unsubscribed from. */
-        expect(tearDownSpy).toHaveBeenCalledTimes(1);
+        expect(tearDownSpy).toHaveBeenCalledTimes(2);
 
     });
 
