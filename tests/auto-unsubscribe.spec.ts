@@ -13,9 +13,7 @@ function createTestComponent() {
     class TestComponent implements OnDestroy, OnInit {
 
         @AutoUnsubscribe()
-        data$ = new Observable(() => {
-            return tearDownSpy;
-        });
+        data$ = new Observable(() => tearDownSpy);
 
         ngOnInit() {
             /* Subscribing twice to make sure that the observable get unsubscribed form twice. */
