@@ -4,6 +4,7 @@ import { AutoUnsubscribe } from '../src/auto-unsubscribe';
 
 function createTestComponent() {
 
+    const onDestroySpy = jest.fn();
     const tearDownSpy = jest.fn();
 
     @Component({
@@ -20,11 +21,14 @@ function createTestComponent() {
             this.data$.subscribe();
         }
 
-        ngOnDestroy = jest.fn();
+        ngOnDestroy() {
+            onDestroySpy();
+        }
 
     }
 
     return {
+        onDestroySpy,
         tearDownSpy,
         testComponent: new TestComponent()
     };
@@ -35,7 +39,7 @@ describe('AutoUnsubscribe', () => {
 
     xit('🚧 should unsubscribe from observable when component is destroyed', () => {
 
-        const {testComponent, tearDownSpy} = createTestComponent();
+        const {onDestroySpy, tearDownSpy, testComponent} = createTestComponent();
 
         testComponent.ngOnInit();
 
@@ -43,6 +47,10 @@ describe('AutoUnsubscribe', () => {
 
         testComponent.ngOnDestroy();
 
+        /* Make sure that `ngOnDestroy` is wrapped and not replaced. */
+        expect(onDestroySpy).toHaveBeenCalledTimes(1);
+
+        /* Check that the observable has been unsubscribed from. */
         expect(tearDownSpy).toHaveBeenCalledTimes(1);
 
     });
