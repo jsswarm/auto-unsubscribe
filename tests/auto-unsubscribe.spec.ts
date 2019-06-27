@@ -14,11 +14,15 @@ function createTestComponent() {
     data$ = new Observable(() => tearDownSpy);
 
     ngOnInit() {
-      this.data$.subscribe();
+      this.subscribeToData();
     }
 
     ngOnDestroy() {
       onDestroySpy();
+    }
+
+    subscribeToData() {
+      this.data$.subscribe();
     }
   }
 
@@ -46,7 +50,7 @@ describe('AutoUnsubscribe', () => {
     expect(tearDownSpy).toHaveBeenCalledTimes(1);
   });
 
-  xit('🚧 should unsubscribe from observable even when replaced by another', () => {
+  it('should unsubscribe from observable even when replaced by another', () => {
     const { tearDownSpy, testComponent } = createTestComponent();
 
     testComponent.ngOnInit();
@@ -56,13 +60,17 @@ describe('AutoUnsubscribe', () => {
     const newTearDownSpy = jest.fn();
 
     testComponent.data$ = new Observable(() => newTearDownSpy);
+    testComponent.subscribeToData();
 
     expect(tearDownSpy).not.toHaveBeenCalled();
     expect(newTearDownSpy).not.toHaveBeenCalled();
 
     testComponent.ngOnDestroy();
 
+    /* Check that the previous observable has been unsubscribed from. */
     expect(tearDownSpy).toHaveBeenCalledTimes(1);
+
+    /* Check that the new observable has been unsubscribed from. */
     expect(newTearDownSpy).toHaveBeenCalledTimes(1);
   });
 });
