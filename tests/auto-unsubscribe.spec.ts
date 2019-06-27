@@ -37,7 +37,7 @@ function createTestComponent() {
 
 describe('AutoUnsubscribe', () => {
 
-    xit('🚧 should unsubscribe from observable when component is destroyed', () => {
+    it('should unsubscribe from observable when component is destroyed', () => {
 
         const {onDestroySpy, tearDownSpy, testComponent} = createTestComponent();
 

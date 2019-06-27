@@ -16,7 +16,7 @@ export function AutoUnsubscribe() {
 
             const onDestroy = isIvy ?
                 target.constructor.ngComponentDef.onDestroy
-                : target.constructor.ngOnDestroy;
+                : target.ngOnDestroy;
 
             const onDestroyWrapper = function () {
                 this._onDestroy$.next();
@@ -24,7 +24,8 @@ export function AutoUnsubscribe() {
                 return onDestroy && onDestroy();
             };
 
-            target.constructor.ngOnDestroy = onDestroyWrapper;
+
+            target.ngOnDestroy = onDestroyWrapper;
 
             if (isIvy) {
                 target.constructor.ngComponentDef.ngOnDestroy = onDestroyWrapper;
