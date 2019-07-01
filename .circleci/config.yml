@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/my-project
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: auto-unsubscribe-{{ .ci }}-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: auto-unsubscribe-{{ .ci }}-{{ checksum "package.json" }}
+          paths:
+            - "node_modules"
+      - run: xvfb-run -a npm run test --coverage --ci
