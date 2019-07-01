@@ -4,7 +4,7 @@
   "description": "an auto unsubscribe lib for angular",
   "scripts": {
     "release": "npx standard-version",
-    "build": "ng-packagr -p package.json",
+    "build": "ng-packagr -p ng-package.json",
     "test": "jest --env=node",
     "commit": "npx git-cz",
     "lint": "ng lint"
@@ -32,7 +32,7 @@
     "rxjs": "^6.5.2",
     "ts-jest": "^24.0.2",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.4.5"
   },
   "private": false,
   "author": "",
@@ -52,11 +52,7 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "@angular/cli": "^8.0.4"
-  },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   }
 }
