@@ -8,9 +8,10 @@ jobs:
       - checkout
       - restore_cache:
           key: auto-unsubscribe-{{ .ci }}-{{ checksum "package.json" }}
-      - run: npm install
+      - run: npm ci
       - save_cache:
           key: auto-unsubscribe-{{ .ci }}-{{ checksum "package.json" }}
           paths:
             - "node_modules"
-      - run: xvfb-run -a npm run test --coverage --ci
+      - run: xvfb-run -a yarn run test --coverage --ci
+      - run: xvfb-run -a yarn run build
