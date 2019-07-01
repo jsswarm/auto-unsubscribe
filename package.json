@@ -32,7 +32,7 @@
     "rxjs": "^6.5.2",
     "ts-jest": "^24.0.2",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.5"
+    "typescript": "3.4"
   },
   "private": false,
   "author": "",
